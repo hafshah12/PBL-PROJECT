@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f7f2">
+    <meta name="description" content="Masuk ke dashboard WashUp! untuk mengelola layanan laundry kiloan.">
+    <title>Masuk | WashUp!</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #183c38;
+            background: #f5f7f2;
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            padding: 32px;
+        }
+
+        .login-layout {
+            width: min(100%, 1040px);
+            min-height: 620px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+            border: 1px solid #e5eae1;
+            border-radius: 28px;
+            background: #fff;
+            box-shadow: 0 24px 70px rgb(28 64 54 / 10%);
+        }
+
+        .welcome-panel {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: 48px;
+            color: #fff;
+            background: #174d45;
+        }
+
+        .welcome-panel::before,
+        .welcome-panel::after {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgb(255 255 255 / 12%);
+            border-radius: 50%;
+            content: "";
+            pointer-events: none;
+        }
+
+        .welcome-panel::before {
+            right: -150px;
+            top: 90px;
+        }
+
+        .welcome-panel::after {
+            right: -100px;
+            top: 140px;
+            width: 180px;
+            height: 180px;
+        }
+
+        .brand {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            width: fit-content;
+            color: inherit;
+            font-size: 20px;
+            font-weight: 750;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            border-radius: 14px;
+            color: #174d45;
+            background: #c4ebbd;
+        }
+
+        .brand-mark svg {
+            width: 25px;
+            height: 25px;
+        }
+
+        .welcome-copy {
+            position: relative;
+            z-index: 1;
+            max-width: 390px;
+            margin: 52px 0;
+        }
+
+        .eyebrow {
+            margin: 0 0 16px;
+            color: #c4ebbd;
+            font-size: 12px;
+            font-weight: 750;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
+
+        .welcome-copy h1 {
+            max-width: 370px;
+            margin: 0;
+            font-size: clamp(36px, 4vw, 50px);
+            line-height: 1.12;
+            letter-spacing: -1.8px;
+        }
+
+        .welcome-copy > p:last-child {
+            max-width: 340px;
+            margin: 20px 0 0;
+            color: #d1e3dc;
+            font-size: 15px;
+            line-height: 1.75;
+        }
+
+        .service-note {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            border: 1px solid rgb(255 255 255 / 15%);
+            border-radius: 16px;
+            background: rgb(255 255 255 / 7%);
+        }
+
+        .service-note-icon {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            flex: 0 0 auto;
+            place-items: center;
+            border-radius: 13px;
+            color: #174d45;
+            background: #c4ebbd;
+            font-size: 20px;
+        }
+
+        .service-note strong,
+        .service-note span {
+            display: block;
+        }
+
+        .service-note strong {
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        .service-note span {
+            color: #d1e3dc;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .form-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 56px clamp(32px, 6vw, 72px);
+        }
+
+        .form-heading {
+            margin-bottom: 32px;
+        }
+
+        .form-heading h2 {
+            margin: 0;
+            color: #183c38;
+            font-size: 30px;
+            letter-spacing: -0.9px;
+        }
+
+        .form-heading p {
+            margin: 9px 0 0;
+            color: #74827c;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .login-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .field {
+            display: grid;
+            gap: 9px;
+        }
+
+        .field label {
+            color: #29443e;
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap input {
+            width: 100%;
+            height: 50px;
+            padding: 0 15px;
+            border: 1px solid #dce4dc;
+            border-radius: 11px;
+            outline: none;
+            color: #183c38;
+            background: #fff;
+            font: inherit;
+            font-size: 14px;
+            transition: border-color 160ms ease, box-shadow 160ms ease;
+        }
+
+        .input-wrap input::placeholder {
+            color: #a2ada6;
+        }
+
+        .input-wrap input:focus {
+            border-color: #38866d;
+            box-shadow: 0 0 0 3px rgb(56 134 109 / 13%);
+        }
+
+        .password-input {
+            padding-right: 76px !important;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            padding: 6px;
+            transform: translateY(-50%);
+            border: 0;
+            border-radius: 6px;
+            color: #43806b;
+            background: transparent;
+            cursor: pointer;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .password-toggle:hover {
+            background: #eff6ef;
+        }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: -2px;
+            color: #62736b;
+            font-size: 13px;
+        }
+
+        .form-options input {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            accent-color: #24715e;
+        }
+
+        .submit-button {
+            min-height: 50px;
+            margin-top: 2px;
+            border: 0;
+            border-radius: 11px;
+            color: #fff;
+            background: #1e6958;
+            cursor: pointer;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-1px);
+            background: #185747;
+        }
+
+        .submit-button:focus-visible,
+        .password-toggle:focus-visible {
+            outline: 3px solid #87c5a4;
+            outline-offset: 3px;
+        }
+
+        .form-message {
+            min-height: 18px;
+            margin: 0;
+            color: #a34c32;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .help-note {
+            margin: 28px 0 0;
+            color: #8a9690;
+            font-size: 12px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 20px;
+            }
+
+            .login-layout {
+                width: min(100%, 480px);
+                min-height: auto;
+                grid-template-columns: 1fr;
+                border-radius: 22px;
+            }
+
+            .welcome-panel {
+                min-height: 270px;
+                padding: 28px;
+            }
+
+            .welcome-copy {
+                margin: 30px 0 0;
+            }
+
+            .welcome-copy h1 {
+                max-width: 330px;
+                font-size: 35px;
+            }
+
+            .welcome-copy > p:last-child {
+                margin-top: 12px;
+                font-size: 14px;
+            }
+
+            .service-note {
+                display: none;
+            }
+
+            .form-panel {
+                padding: 36px 28px 32px;
+            }
+
+            .form-heading {
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            body {
+                padding: 12px;
+            }
+
+            .welcome-panel {
+                padding: 24px;
+            }
+
+            .form-panel {
+                padding: 30px 22px 26px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="login-layout">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section class="welcome-panel" aria-labelledby="welcome-title">
+            <div class="brand" aria-label="WashUp!">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M7.5 4.5h9l1 3.2H6.5l1-3.2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="M5.5 8.2h13l1.2 10.1a1.5 1.5 0 0 1-1.5 1.7H5.8a1.5 1.5 0 0 1-1.5-1.7L5.5 8.2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="M8 12.4c1.3-1.3 2.7-1.3 4 0s2.7 1.3 4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span>WashUp!</span>
+            </div>
+
+            <div class="welcome-copy">
+                <p class="eyebrow">Kelola laundry lebih mudah</p>
+                <h1>Urusan bersih, jadi lebih praktis.</h1>
+                <p>Masuk ke dashboard untuk mengelola pesanan dan layanan laundry kiloan Anda.</p>
+            </div>
+
+            <div class="service-note">
+                <span class="service-note-icon" aria-hidden="true">✦</span>
+                <div>
+                    <strong>Rapi untuk setiap cucian</strong>
+                    <span>Kelola layanan dengan nyaman, dari satu tempat.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-panel" aria-labelledby="form-title">
+            <header class="form-heading">
+                <h2 id="form-title">Selamat datang</h2>
+                <p>Masukkan akun Anda untuk melanjutkan ke dashboard.</p>
+            </header>
+
+            <form class="login-form" id="login-form">
+                <div class="field">
+                    <label for="username">Email atau nama pengguna</label>
+                    <div class="input-wrap">
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            placeholder="Masukkan email atau nama pengguna"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="password">Kata sandi</label>
+                    <div class="input-wrap">
+                        <input
+                            class="password-input"
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Masukkan kata sandi"
+                            autocomplete="current-password"
+                            required
+                        >
+                        <button class="password-toggle" id="password-toggle" type="button" aria-controls="password" aria-pressed="false">
+                            Lihat
+                        </button>
+                    </div>
+                </div>
+
+                <label class="form-options" for="remember">
+                    <input id="remember" name="remember" type="checkbox">
+                    Ingat saya di perangkat ini
+                </label>
+
+                <button class="submit-button" type="submit">Masuk ke dashboard</button>
+                <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+            </form>
+
+            <p class="help-note">Belum bisa masuk? Hubungi pengelola laundry Anda.</p>
+        </section>
+    </main>
+
+    <script>
+        const passwordInput = document.getElementById("password");
+        const passwordToggle = document.getElementById("password-toggle");
+        const loginForm = document.getElementById("login-form");
+        const formMessage = document.getElementById("form-message");
+
+        passwordToggle.addEventListener("click", () => {
+            const isVisible = passwordInput.type === "text";
+            passwordInput.type = isVisible ? "password" : "text";
+            passwordToggle.textContent = isVisible ? "Lihat" : "Sembunyikan";
+            passwordToggle.setAttribute("aria-pressed", String(!isVisible));
+        });
+
+        loginForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            formMessage.textContent = "Tampilan front-end siap. Hubungkan form ini ke sistem autentikasi untuk mengaktifkan login.";
+        });
+    </script>
+</body>
+</html>
